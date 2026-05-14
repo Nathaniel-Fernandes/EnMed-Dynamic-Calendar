@@ -54,8 +54,6 @@ app.get("/:mc/calendar.ics", async (req, res) => {
                 elements.map((el) => el.getAttribute("onclick"))
             );
 
-        console.log(rawEvents);
-
         const calendar = ical({
             name: `EnMed ${mc} Calendar`,
         });
@@ -75,15 +73,27 @@ app.get("/:mc/calendar.ics", async (req, res) => {
             console.log("Date: ", data.date, data.start);
             console.log("Date: ", data.date, data.end);
 
-            const start = DateTime.fromFormat(
-                `${data.date} ${data.start}`,
-                "M/d/yyyy H:mm",
+            const start = DateTime.fromObject(
+                {
+                    year: Number(data.date.split("/")[2]),
+                    month: Number(data.date.split("/")[0]),
+                    day: Number(data.date.split("/")[1]),
+                    hour: Number(data.start.split(":")[0]),
+                    minute: Number(data.start.split(":")[1]),
+                    second: Number(data.start.split(":")[2]),
+                },
                 { zone: "America/Chicago" }
             ).toJSDate();
 
-            const end = DateTime.fromFormat(
-                `${data.date} ${data.end}`,
-                "M/d/yyyy H:mm",
+            const end = DateTime.fromObject(
+                {
+                    year: Number(data.date.split("/")[2]),
+                    month: Number(data.date.split("/")[0]),
+                    day: Number(data.date.split("/")[1]),
+                    hour: Number(data.end.split(":")[0]),
+                    minute: Number(data.end.split(":")[1]),
+                    second: Number(data.end.split(":")[2]),
+                },
                 { zone: "America/Chicago" }
             ).toJSDate();
 
