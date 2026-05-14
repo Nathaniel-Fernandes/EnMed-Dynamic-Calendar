@@ -4,6 +4,20 @@ import ical from "ical-generator";
 
 const app = express();
 
+app.get("/", async (req, res) => {
+    res.send(`
+    Available links:
+
+    <pre>
+    - https://enmed-dynamic-calendar.onrender.com/M0/calendar.ics
+    - https://enmed-dynamic-calendar.onrender.com/M1/calendar.ics
+    - https://enmed-dynamic-calendar.onrender.com/M2/calendar.ics
+    - https://enmed-dynamic-calendar.onrender.com/M3/calendar.ics
+    - https://enmed-dynamic-calendar.onrender.com/M4/calendar.ics
+    </pre>
+    `);
+});
+
 app.get("/:mc/calendar.ics", async (req, res) => {
     const mc = req.params.mc;
 
@@ -54,8 +68,8 @@ app.get("/:mc/calendar.ics", async (req, res) => {
 
             const data = JSON.parse(match[1]);
 
-            const start = new Date(`${data.date} ${data.start}`);
-            const end = new Date(`${data.date} ${data.end}`);
+            const start = new Date(`${data.date} ${data.start} CST`);
+            const end = new Date(`${data.date} ${data.end} CST`);
 
             let title = "";
             if (data.mand.toLowerCase() !== "no") {
