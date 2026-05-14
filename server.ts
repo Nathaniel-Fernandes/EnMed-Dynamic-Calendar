@@ -91,6 +91,8 @@ app.get("/:mc/calendar.ics", async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log("Calendar running at http://localhost:3000/calendar.ics");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("Calendar running!");
 });
