@@ -80,7 +80,7 @@ app.get("/:mc/calendar.ics", async (req, res) => {
                     day: Number(data.date.split("/")[1]),
                     hour: Number(data.start.split(":")[0]),
                     minute: Number(data.start.split(":")[1]),
-                    second: Number(data.start.split(":")[2]),
+                    second: Number(data.start.split(":")[2] ?? "00"),
                 },
                 { zone: "America/Chicago" }
             ).toJSDate();
@@ -92,7 +92,7 @@ app.get("/:mc/calendar.ics", async (req, res) => {
                     day: Number(data.date.split("/")[1]),
                     hour: Number(data.end.split(":")[0]),
                     minute: Number(data.end.split(":")[1]),
-                    second: Number(data.end.split(":")[2]),
+                    second: Number(data.end.split(":")[2] ?? "00"),
                 },
                 { zone: "America/Chicago" }
             ).toJSDate();
