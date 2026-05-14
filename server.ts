@@ -1,6 +1,7 @@
 import express from "express";
 import { chromium } from "playwright";
 import ical from "ical-generator";
+import { DateTime } from "luxon";
 
 const app = express();
 
@@ -68,8 +69,20 @@ app.get("/:mc/calendar.ics", async (req, res) => {
 
             const data = JSON.parse(match[1]);
 
-            const start = new Date(`${data.date} ${data.start} CST`);
-            const end = new Date(`${data.date} ${data.end} CST`);
+            // const start = new Date(`${data.date} ${data.start} CST`);
+            // const end = new Date(`${data.date} ${data.end} CST`);
+
+            const start = DateTime.fromFormat(
+                `${data.date} ${data.start}`,
+                "MM/dd/yyyy HH:mm",
+                { zone: "America/Chicago" }
+            ).toJSDate();
+
+            const end = DateTime.fromFormat(
+                `${data.date} ${data.end}`,
+                "MM/dd/yyyy HH:mm",
+                { zone: "America/Chicago" }
+            ).toJSDate();
 
             let title = "";
             if (data.mand.toLowerCase() !== "no") {
