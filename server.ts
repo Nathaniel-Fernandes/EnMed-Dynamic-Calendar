@@ -72,15 +72,18 @@ app.get("/:mc/calendar.ics", async (req, res) => {
             // const start = new Date(`${data.date} ${data.start} CST`);
             // const end = new Date(`${data.date} ${data.end} CST`);
 
+            console.log("Date: ", data.date, data.start);
+            console.log("Date: ", data.date, data.end);
+
             const start = DateTime.fromFormat(
                 `${data.date} ${data.start}`,
-                "MM/dd/yyyy HH:mm",
+                "M/d/yyyy H:mm",
                 { zone: "America/Chicago" }
             ).toJSDate();
 
             const end = DateTime.fromFormat(
                 `${data.date} ${data.end}`,
-                "MM/dd/yyyy HH:mm",
+                "M/d/yyyy H:mm",
                 { zone: "America/Chicago" }
             ).toJSDate();
 
